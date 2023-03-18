@@ -62,7 +62,6 @@ def proceeding_counting(us_dict):
         print("Спасибо, что воспользовались нашим трекером !")
         return
 
-
 def count_total_distance(user_dict):
     '''Функция возвращает количество шагов уже сделанное за день'''
     s = sum(map(lambda x:x[1], user_dict.values()))
