@@ -5,15 +5,15 @@ from random import randint
 print("Вашему вниманию предлагается инновационный Фитнесс-Трекер TRACE-1\nСледуйте инструкциям !")
 pattern = '%d.%m.%Y'
 fitness_dairy = []
-min_speed, max_speed =0, 7200  # м\ч
+min_speed, max_speed = 0, 7200  # м\ч
 limit_distance = 86400
 FORMAT = "%H:%M:%S"  # Запишите формат полученного времени.
 
 def check_size_step(step):
-    if 30 < step < 130:
+    if isinstance(step, int) and 30 < step < 130:
         return step
     print("Something goes wrong ! Take another attempt !")
-    check_weight(input("Введите среднюю длину вашего шага в см\n"))
+    check_size_step(int(input("Введите среднюю длину вашего шага в см\n")))
 
 one_step = check_size_step(int(input("Введите среднюю длину вашего шага в см\n")))
 
@@ -33,7 +33,7 @@ def check_height(rost: int):
 
 
 def enter_start_day():
-    first_day = input('Введите дату начала измерений в формате "ДД.ММ.ГГГГ\n')  # 18.03.2023
+    first_day = input('Введите дату начала измерений в формате "ДД.ММ.ГГГГ"\n')  # 18.03.2023
     try:
         dt_obj = DT.datetime.strptime(first_day, pattern)
         return dt_obj
@@ -98,7 +98,7 @@ def form_new_data():
         press_time = last_pressing_time + td_obj
         middle_speed_for_this_period = randint(min_speed, max_speed)
         distanse_for_this_period = round(middle_speed_for_this_period * round(press_time_button / 3600, 2), 2)
-        number_of_steps = int(distanse_for_this_period // round(one_step / 100, 0))
+        number_of_steps = int(distanse_for_this_period // (one_step / 100))
         day_dict[press_time] = (number_of_steps, get_spent_calories(int(number_of_steps * one_step / 100), time_in_hours))
         print('Если хотите посмотреть результаты за этот спринт нажмите 1')
         temp = input()
